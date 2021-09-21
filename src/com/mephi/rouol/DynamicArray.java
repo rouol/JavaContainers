@@ -1,6 +1,8 @@
 package com.mephi.rouol;
 
-public class DynamicArray<E> {
+import java.util.Arrays;
+
+public class DynamicArray<T> {
 
     // Defaults
     private static final int DEFAULT_BUFFER_SIZE = 10;
@@ -12,19 +14,28 @@ public class DynamicArray<E> {
     private int RCap = DEFAULT_BUFFER_SIZE;
 
     //This array will store all elements added to list
-    private E data[];
+    private T data[];
 
     //                        CONSTRUCTOR
     //-----------------------------------------------------------
-    // by size
-    public DynamicArray(int size) {
-        data = (E[]) new Object[size + DEFAULT_BUFFER_SIZE];
+    // empty
+    public DynamicArray() {
+        data = (T[]) new Object[0 + DEFAULT_BUFFER_SIZE];
+        count = 0;
+    }
+    // by size and value
+    public DynamicArray(int size, T defaultValue) {
+        data = (T[]) new Object[size + DEFAULT_BUFFER_SIZE];
+        for (int i = 0; i < size; i++){
+            data[i] = (T) defaultValue;
+        }
+        count = size;
     }
 
     //                          METHODS
     //-----------------------------------------------------------
     // add to the end
-    public void add(E e) {
+    public void add(T e) {
 
         if (this.RCap > 0) {
             data[count++] = e;
@@ -35,20 +46,46 @@ public class DynamicArray<E> {
             RCap--;
         }
     }
-
-    // Get method
-    public E get(int index) {
-        if (index == count || index < 0) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + index);
+    // add by index
+    public void add(T e, int index) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
         }
-        return (E) data[index];
+        data[index] = e;
+    }
+    // get method
+    public T get(int index) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
+        }
+        return (T) data[index];
+    }
+    // remove method
+    public T remove(int index) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
+        }
+        data[index] = null;
+        return (T) data[index];
+    }
+    // set method
+    public T set(T e, int index) {
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
+        }
+        data[index] = e;
+        return (T) data[index];
+    }
+    // contains method
+    public Boolean contains(T e) {
+        for (int i = 0; i < this.count; i++) {
+            if (this.get(i) == e) return true;
+        }
+        return false;
     }
 
     private void refreshRCap() {
-        int newSize = this.data.length + DEFAULT_BUFFER_SIZE;
-        Object[] temp_data = data;
-        data = (E[]) new Object[newSize];
-        System.arraycopy(temp_data, 0, data, 0, newSize);
+        data = Arrays.copyOf(data, this.data.length + DEFAULT_BUFFER_SIZE);
     }
 
     // toString method
@@ -57,14 +94,19 @@ public class DynamicArray<E> {
     {
         StringBuilder sb = new StringBuilder();
         sb.append('[');
-        for(int i = 0; i < this.count ;i++) {
-            sb.append(this.data[i].toString());
-            if(i < this.count - 1){
+        for(int i = 0; i < this.count; i++) {
+            sb.append(this.get(i).toString());
+            if (i < this.count - 1){
                 sb.append(",");
             }
         }
         sb.append(']');
         return sb.toString();
+    }
+
+    // get size
+    public int size() {
+        return this.count;
     }
 
 }
