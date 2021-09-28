@@ -5,8 +5,7 @@ package com.mephi.rouol;
 public class List {
 
     // Defaults
-    private static final int DEFAULT_BUFFER_SIZE = 10;
-    //private static final int DEFAULT_CAPACITY = DEFAULT_BUFFER_SIZE * 3;
+    private static final int DEFAULT_BUFFER_SIZE = 16;
 
     // count
     private int count;
@@ -120,7 +119,7 @@ public class List {
         for(int i = 0; i < this.count; i++) {
             sb.append(this.get(i).toString());
             if (i < this.count - 1){
-                sb.append(",");
+                sb.append(", ");
             }
         }
         sb.append(']');

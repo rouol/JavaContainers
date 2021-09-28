@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) {
 
         // checking the List
+        System.out.println("\n        checking the List\n");
         {
             List list = new List();
 
@@ -41,6 +42,32 @@ public class Main {
             System.out.println(newlist);
         }
 
+        // checking the Map
+        System.out.println("\n        checking the Map\n");
+
+        Map map = new Map();
+
+        System.out.println(map.isEmpty());
+
+        map.put(0, 10);
+        map.put(1, "ааа");
+        map.put(17, new List(3, "ыыы"));
+        map.put(2, 228);
+        map.put(3, "java");
+        map.put("dsjfkl", "sdfsdfsdf");
+        System.out.println(map);
+        System.out.println(map.get("dsjfkl"));
+        System.out.println(map.remove(1));
+        System.out.println(map.keyContains(100));
+        System.out.println(map.get(100,"100"));
+        System.out.println(map.keyContains(100));
+        System.out.println(map);
+        System.out.println(map.getKeys().toString());
+        System.out.println(map.getValues().toString());
+        System.out.println(map.getEntries().toString());
+        System.out.println(map.size());
+
+        System.out.println(map.isEmpty());
 
     }
 }
