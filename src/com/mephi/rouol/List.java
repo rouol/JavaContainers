@@ -18,12 +18,17 @@ public class List {
 
     //                        CONSTRUCTOR
     //-----------------------------------------------------------
-    // empty
+    /** creates empty List **/
     public List() {
         data = new Object[DEFAULT_BUFFER_SIZE];
         count = 0;
     }
-    // by size and value
+    /** creates List with defined size with nulls **/
+    public List(int size) {
+        data = new Object[size + DEFAULT_BUFFER_SIZE];
+        count = size;
+    }
+    /** creates List with defined size and fill it with default value given **/
     public List(int size, Object defaultValue) {
         data = new Object[size + DEFAULT_BUFFER_SIZE];
         for (int i = 0; i < size; i++){
@@ -56,14 +61,14 @@ public class List {
         this.count++;
         data[index] = object;
     }
-    // returns object by index
+    /** returns object by index **/
     public Object get(int index) {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
         }
         return data[index];
     }
-    // sets null and returns old object by index
+    /** sets null and returns old object by index **/
     public Object remove(int index) {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
@@ -75,7 +80,7 @@ public class List {
         this.count--;
         return _object;
     }
-    // sets new object and returns old object
+    /** sets new object and returns old object **/
     public Object set(Object object, int index) {
         if (index >= count || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
@@ -84,25 +89,25 @@ public class List {
         data[index] = object;
         return _object;
     }
-    // returns true if list contains object, false if not
+    /** returns true if list contains object, false if not **/
     public Boolean contains(Object object) {
         for (int i = 0; i < this.count; i++) {
             if (this.get(i) == object) return true;
         }
         return false;
     }
-    // returns index of object
+    /** returns index of object **/
     public int indexOf(Object object) {
         for (int i = 0; i < this.count; i++) {
             if (this.get(i) == object) return i;
         }
         return -1;
     }
-    // returns current size of list
+    /** returns current size of list **/
     public int size() {
         return this.count;
     }
-    // returns true if list is empty, false if not
+    /** returns true if list is empty, false if not **/
     public Boolean isEmpty() {
         return this.count == 0;
     }
