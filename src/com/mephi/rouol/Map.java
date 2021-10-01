@@ -169,8 +169,8 @@ public class Map {
         return this.count == 0;
     }
 
+    /**
     // toString method
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -184,6 +184,26 @@ public class Map {
                 if (i < this.capacity - 1){
                     sb.append("\n");
                 }
+            }
+        }
+        sb.append("}");
+        return sb.toString();
+    }
+    **/
+    // toString method
+    @Override
+    public String toString() {
+        List entryList = this.getEntries();
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        for (int i = 0; i < entryList.size(); i++) {
+            Entry entry = (Entry) entryList.get(i);
+            sb.append("    ");
+            sb.append(entry.key.toString());
+            sb.append(": ");
+            sb.append(entry.value.toString());
+            if (i < this.capacity - 1){
+                sb.append("\n");
             }
         }
         sb.append("}");
