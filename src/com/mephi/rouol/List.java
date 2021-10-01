@@ -35,6 +35,11 @@ public class List {
         }
         count = size;
     }
+    /** creates List from Object[] given **/
+    public List(Object[] objects) {
+        data = objects;
+        count = objects.length;
+    }
 
     //                          METHODS
     //-----------------------------------------------------------
@@ -110,7 +115,6 @@ public class List {
     public Boolean isEmpty() {
         return this.count == 0;
     }
-
     // toString method
     @Override
     public String toString() {
