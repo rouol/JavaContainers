@@ -195,15 +195,15 @@ public class Map {
     public String toString() {
         List entryList = this.getEntries();
         StringBuilder sb = new StringBuilder();
-        sb.append("{\n");
+        sb.append("{");
         for (int i = 0; i < entryList.size(); i++) {
             Entry entry = (Entry) entryList.get(i);
-            sb.append("    ");
+            //sb.append("    ");
             sb.append(entry.key.toString());
             sb.append(": ");
             sb.append(entry.value.toString());
-            if (i < this.capacity - 1){
-                sb.append("\n");
+            if (i < entryList.size() - 1){
+                sb.append(", ");
             }
         }
         sb.append("}");
