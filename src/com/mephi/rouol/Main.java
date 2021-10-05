@@ -53,6 +53,8 @@ public class Main {
             list.add(3);
             list.add(4);
             list.add(5);
+            list.remove(2);
+            System.out.println(list.get(2));
 
             System.out.println(list.get(0));
 

@@ -55,7 +55,7 @@ public class List {
             RCap--;
         }
     }
-    /** set object by index **/
+    /** insert object by index **/
     public void add(Object object, int index) {
         if (index > this.count || index < 0) {   // add to this.count = add to the end
             throw new IndexOutOfBoundsException("Index: " + index + ", Size " + count);
@@ -63,6 +63,7 @@ public class List {
         if (this.count == this.data.length) refreshRCap();
         System.arraycopy(data, index, this.data, index + 1, this.count - index);
         this.count++;
+        this.RCap--;
         data[index] = object;
     }
     /** returns object by index **/
@@ -79,9 +80,10 @@ public class List {
         }
         Object _object = this.data[index];
         if (this.count - (index + 1) >= 0)
-            System.arraycopy(data, index + 1, data, index + 1 - 1, this.count - (index + 1));
+            System.arraycopy(data, index + 1, data, index, this.count - (index + 1));
         data[this.count - 1] = null;
         this.count--;
+        this.RCap++;
         return _object;
     }
     /** sets new object and returns old object **/
@@ -95,15 +97,27 @@ public class List {
     }
     /** returns true if list contains object, false if not **/
     public Boolean contains(Object object) {
+        if (object == null){
+            for (int i = 0; i < this.count; i++) {
+                if (this.get(i) == object) return true;
+            }
+            return false;
+        }
         for (int i = 0; i < this.count; i++) {
-            if (this.get(i) == object) return true;
+            if (this.get(i).equals(object)) return true;
         }
         return false;
     }
     /** returns index of object **/
     public int indexOf(Object object) {
+        if (object == null) {
+            for (int i = 0; i < this.count; i++) {
+                if (this.get(i) == object) return i;
+            }
+            return -1;
+        }
         for (int i = 0; i < this.count; i++) {
-            if (this.get(i) == object) return i;
+            if (this.get(i).equals(object)) return i;
         }
         return -1;
     }
@@ -130,13 +144,14 @@ public class List {
         return sb.toString();
     }
 
-    //                     PRIVATE FUNCTIONS
+    //                     PRIVATE METHODS
     //-----------------------------------------------------------
     private void refreshRCap() {
         //data = Arrays.copyOf(data, this.data.length + DEFAULT_BUFFER_SIZE);
         Object[] _data = this.data;
         this.data = new Object[this.data.length + DEFAULT_BUFFER_SIZE];
         System.arraycopy(_data, 0, this.data, 0, this.count);
+        RCap = DEFAULT_BUFFER_SIZE;
     }
 
 }
