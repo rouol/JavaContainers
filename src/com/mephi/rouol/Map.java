@@ -106,7 +106,15 @@ public class Map {
         if (temp == null) return -1;
         for (int i = 0; i < temp.size(); i++) {
             Entry entry = (Entry) temp.get(i);
-            if (entry.key == key) {
+            if (entry.key == null){
+                if (entry.key == key) {
+                    temp.remove(i);
+                    keys.remove(keys.indexOf(key));
+                    if (temp.size() == 0) temp = null;
+                    this.count--;
+                    return entry.value;
+                }
+            } else if (entry.key.equals(key)) {
                 temp.remove(i);
                 keys.remove(keys.indexOf(key));
                 if (temp.size() == 0) temp = null;
