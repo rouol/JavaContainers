@@ -56,6 +56,14 @@ public class Map {
             this.keys.add(key);
         } else { // have collision
             List temp = (List) nodes.get(index);
+            // check if key is present
+            for (int i = 0; i < temp.size(); i++) {
+                Entry entry = (Entry) temp.get(i);
+                if (entry.key.equals(key)) {
+                    entry.value = value;
+                    return;
+                }
+            }
             Entry entry = new Entry();
             entry.key = key;
             entry.value = value;
@@ -74,7 +82,7 @@ public class Map {
         if (temp == null) return -1;
         for (int i = 0; i < temp.size(); i++) {
             Entry entry = (Entry) temp.get(i);
-            if (entry.key == key) return entry.value;
+            if (entry.key.equals(key)) return entry.value;
         }
         return -1;
 
