@@ -4,16 +4,14 @@ public class Main {
 
     /** returns merged sorted list of two given sorted lists **/
     public static List mergeSortedLists(List A, List B){
-
         if (A.size() == 0) return B;
         if (B.size() == 0) return A;
-
         int newlen = A.size() + B.size();
         List mergedList = new List(newlen);
         int headA = 0;
         int headB = 0;
-        int a = 0;
-        int b = 0;
+        int a = (int) A.get(headA);
+        int b = (int) B.get(headB);
         for (int i = 0; i < newlen; i++) {
             if (headA >= A.size()) {
                 mergedList.set(b, i);
@@ -25,18 +23,34 @@ public class Main {
                 headA++;
                 continue;
             }
-            a = (int) A.get(headA);
-            b = (int) B.get(headB);
             if (a <= b) {
                 mergedList.set(a, i);
                 headA++;
+                if (headA < A.size()) a = (int) A.get(headA);
             } else {
                 mergedList.set(b, i);
                 headB++;
+                if (headB < B.size()) b = (int) B.get(headB);
             }
         }
 
         return mergedList;
+    }
+
+    /** returns all substr and num of occurrences **/
+    public static Map countAllSubstr(String string){
+        List substrings = new List(string.split(" "));
+        Map uniqueSubstrings = new Map();
+        for (int i = 0; i < substrings.size(); i++) {
+            String substr = (String) substrings.get(i);
+            if (!uniqueSubstrings.keyContains(substr)) {
+                uniqueSubstrings.put(substr, 1);
+            } else {
+                int prev = (int) uniqueSubstrings.remove(substr);
+                uniqueSubstrings.put(substr, prev + 1);
+            }
+        }
+        return uniqueSubstrings;
     }
 
     public static void main(String[] args) {
@@ -116,6 +130,12 @@ public class Main {
             List b = new List(new Object[]{-1, 2, 3, 4, 5, 8, 11});
             List merged = mergeSortedLists(a, b);
             System.out.println(merged);
+        }
+
+        // checking countAllSubstr
+        {
+            String str = "aaa bab jsd sdfs jsd aaa aaa aba";
+            System.out.println(countAllSubstr(str));
         }
 
     }
