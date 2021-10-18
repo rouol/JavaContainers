@@ -46,8 +46,7 @@ public class Main {
             if (!uniqueSubstrings.keyContains(substr)) {
                 uniqueSubstrings.put(substr, 1);
             } else {
-                int prev = (int) uniqueSubstrings.remove(substr);
-                uniqueSubstrings.put(substr, prev + 1);
+                uniqueSubstrings.put(substr, (int) uniqueSubstrings.get(substr) + 1);
             }
         }
         return uniqueSubstrings;
