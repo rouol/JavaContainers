@@ -52,6 +52,21 @@ public class Main {
         return uniqueSubstrings;
     }
 
+    /** returns str w/o additional occurrences **/
+    public static String reduceOccurences(String string){
+        String reducedstr = "";
+        List substrings = new List(string.split(" "));
+        Map uniqueSubstrings = new Map();
+        for (int i = 0; i < substrings.size(); i++) {
+            String substr = (String) substrings.get(i);
+            if (!uniqueSubstrings.keyContains(substr)) {
+                uniqueSubstrings.put(substr, 1);
+                reducedstr += substr + " ";
+            }
+        }
+        return reducedstr;
+    }
+
     public static void main(String[] args) {
 
         // checking the List
@@ -131,10 +146,15 @@ public class Main {
             System.out.println(merged);
         }
 
+        System.out.println();
+        System.out.println("\n                          LAB 2\n");
+        System.out.println("\n        checking countAllSubstr and reduceOccurences\n");
         // checking countAllSubstr
         {
             String str = "aaa bab jsd sdfs jsd aaa aaa aba";
+            System.out.println(str);
             System.out.println(countAllSubstr(str));
+            System.out.println(reduceOccurences(str));
         }
 
     }
