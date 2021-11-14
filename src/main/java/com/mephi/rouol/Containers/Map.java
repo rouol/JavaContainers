@@ -1,4 +1,4 @@
-package com.mephi.rouol;
+package com.mephi.rouol.Containers;
 
 public class Map {
 

@@ -1,4 +1,4 @@
-package com.mephi.rouol;
+package com.mephi.rouol.Containers;
 
 //import java.util.Arrays;
 
@@ -142,6 +142,42 @@ public class List {
         }
         sb.append(']');
         return sb.toString();
+    }
+
+    // PUBLIC STATIC
+    /** returns merged sorted list of two given sorted lists **/
+    public static List mergeSortedLists(List A, List B){
+        if (A.size() == 0) return B;
+        if (B.size() == 0) return A;
+        int newlen = A.size() + B.size();
+        List mergedList = new List(newlen);
+        int headA = 0;
+        int headB = 0;
+        int a = (int) A.get(headA);
+        int b = (int) B.get(headB);
+        for (int i = 0; i < newlen; i++) {
+            if (headA >= A.size()) {
+                mergedList.set(b, i);
+                headB++;
+                continue;
+            }
+            if (headB >= B.size()) {
+                mergedList.set(a, i);
+                headA++;
+                continue;
+            }
+            if (a <= b) {
+                mergedList.set(a, i);
+                headA++;
+                if (headA < A.size()) a = (int) A.get(headA);
+            } else {
+                mergedList.set(b, i);
+                headB++;
+                if (headB < B.size()) b = (int) B.get(headB);
+            }
+        }
+
+        return mergedList;
     }
 
     //                     PRIVATE METHODS
