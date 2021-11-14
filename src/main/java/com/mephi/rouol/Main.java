@@ -3,6 +3,7 @@ package com.mephi.rouol;
 import com.mephi.rouol.AccountantBot.Accountant;
 import com.mephi.rouol.AccountantBot.AccountantDemo;
 import com.mephi.rouol.AccountantBot.Employee;
+import com.mephi.rouol.AccountantBot.FunctionalInterfacesDemo;
 import com.mephi.rouol.Containers.List;
 import com.mephi.rouol.Containers.Map;
 
@@ -121,5 +122,14 @@ public class Main {
         System.out.println("\n/** Выплата премии стаффу **/");
         AccountantDemo.payPremiumStaff(employees);
 
+        System.out.println("\n/** HW for LAB 3 **/\n");
+        System.out.println("/** Consumer Lambda Expression **/");
+        FunctionalInterfacesDemo.exampleConsumerLambdaExpression(employees);
+        System.out.println("/** Function Lambda Expression **/");
+        FunctionalInterfacesDemo.exampleFunctionLambdaExpression(employees);
+        System.out.println("/** Supplier Lambda Expression **/");
+        FunctionalInterfacesDemo.exampleSupplierLambdaExpression();
+        System.out.println("\n/** BiPredicate Lambda Expression **/");
+        FunctionalInterfacesDemo.exampleBiPredicateLambdaExpression(employees);
     }
 }
