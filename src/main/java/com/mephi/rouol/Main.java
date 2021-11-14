@@ -1,74 +1,21 @@
 package com.mephi.rouol;
 
+import com.mephi.rouol.AccountantBot.Accountant;
+import com.mephi.rouol.AccountantBot.AccountantDemo;
+import com.mephi.rouol.AccountantBot.Employee;
+import com.mephi.rouol.Containers.List;
+import com.mephi.rouol.Containers.Map;
+
+import java.util.ArrayList;
+
+import com.mephi.rouol.StringEditor.StringEditor;
+
 public class Main {
-
-    /** returns merged sorted list of two given sorted lists **/
-    public static List mergeSortedLists(List A, List B){
-        if (A.size() == 0) return B;
-        if (B.size() == 0) return A;
-        int newlen = A.size() + B.size();
-        List mergedList = new List(newlen);
-        int headA = 0;
-        int headB = 0;
-        int a = (int) A.get(headA);
-        int b = (int) B.get(headB);
-        for (int i = 0; i < newlen; i++) {
-            if (headA >= A.size()) {
-                mergedList.set(b, i);
-                headB++;
-                continue;
-            }
-            if (headB >= B.size()) {
-                mergedList.set(a, i);
-                headA++;
-                continue;
-            }
-            if (a <= b) {
-                mergedList.set(a, i);
-                headA++;
-                if (headA < A.size()) a = (int) A.get(headA);
-            } else {
-                mergedList.set(b, i);
-                headB++;
-                if (headB < B.size()) b = (int) B.get(headB);
-            }
-        }
-
-        return mergedList;
-    }
-
-    /** returns all substr and num of occurrences **/
-    public static Map countAllSubstr(String string){
-        List substrings = new List(string.split(" "));
-        Map uniqueSubstrings = new Map();
-        for (int i = 0; i < substrings.size(); i++) {
-            String substr = (String) substrings.get(i);
-            if (!uniqueSubstrings.keyContains(substr)) {
-                uniqueSubstrings.put(substr, 1);
-            } else {
-                uniqueSubstrings.put(substr, (int) uniqueSubstrings.get(substr) + 1);
-            }
-        }
-        return uniqueSubstrings;
-    }
-
-    /** returns str w/o additional occurrences **/
-    public static String reduceOccurences(String string){
-        String reducedstr = "";
-        List substrings = new List(string.split(" "));
-        Map uniqueSubstrings = new Map();
-        for (int i = 0; i < substrings.size(); i++) {
-            String substr = (String) substrings.get(i);
-            if (!uniqueSubstrings.keyContains(substr)) {
-                uniqueSubstrings.put(substr, 1);
-                reducedstr += substr + " ";
-            }
-        }
-        return reducedstr;
-    }
 
     public static void main(String[] args) {
 
+        // old labs
+        /*
         // checking the List
         System.out.println("\n        checking the List\n");
         {
@@ -142,7 +89,7 @@ public class Main {
         {
             List a = new List(new Object[]{0, 1, 2, 7, 9});
             List b = new List(new Object[]{-1, 2, 3, 4, 5, 8, 11});
-            List merged = mergeSortedLists(a, b);
+            List merged = List.mergeSortedLists(a, b);
             System.out.println(merged);
         }
 
@@ -153,9 +100,26 @@ public class Main {
         {
             String str = "aaa bab jsd sdfs jsd aaa aaa aba";
             System.out.println(str);
-            System.out.println(countAllSubstr(str));
-            System.out.println(reduceOccurences(str));
+            System.out.println(StringEditor.countAllSubstr(str));
+            System.out.println(StringEditor.reduceOccurences(str));
         }
+        */
+
+        System.out.println("\n/** LAB 3 **/");
+        ArrayList<Employee> employees = Employee.createShortList();
+        //System.out.println(employees);
+        System.out.println(Accountant.paySalary(employees.get(11)));
+        System.out.println(Accountant.payPremium(employees.get(9)));
+        System.out.println("\n/** Выплата премии женщинам сотрудникам **/");
+        AccountantDemo.payPremiumWomen(employees);
+        System.out.println("\n/** Выплата зарплаты сотрудникам определенного департамента **/");
+        AccountantDemo.paySalaryFromDept(employees, Employee.Dept.IT);
+        System.out.println("\n/** Выплата премии сотрудникам старше 30, работающим в определенном департаменте **/");
+        AccountantDemo.payPremiumOverThirtyFromDept(employees, Employee.Dept.SALES);
+        System.out.println("\n/** Выплата зарплаты менеджерам **/");
+        AccountantDemo.paySalaryManagers(employees);
+        System.out.println("\n/** Выплата премии стаффу **/");
+        AccountantDemo.payPremiumStaff(employees);
 
     }
 }
