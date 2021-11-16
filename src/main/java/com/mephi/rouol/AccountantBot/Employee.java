@@ -175,31 +175,32 @@ public class Employee {
 
         builder.setDept(dept);
         builder.setRole(role);
-        String givenName = "";
-        String surName = "";
-        switch (Gender.values()[randomNumber.nextInt(Gender.values().length)]){
+
+        String givenName, surName;
+
+        switch ((Gender) randomChoice(Gender.values())){
             case MALE: {
                 builder.setGender(Gender.MALE);
                 builder.setAge(minEmployeeAge + randomNumber.nextInt(maxMaleEmployeeAge - minEmployeeAge));
-                givenName = maleNames[randomNumber.nextInt(maleNames.length)];
-                surName = maleSurNames[randomNumber.nextInt(maleSurNames.length)];
-                builder.setGivenName(givenName);
-                builder.setSurName(surName);
+                givenName = (String) randomChoice(maleNames);
+                surName = (String) randomChoice(maleSurNames);
                 break;
             }
             case FEMALE: {
                 builder.setGender(Gender.FEMALE);
                 builder.setAge(minEmployeeAge + randomNumber.nextInt(maxFemaleEmployeeAge - minEmployeeAge));
-                givenName = femaleNames[randomNumber.nextInt(femaleNames.length)];
-                surName = femaleSurNames[randomNumber.nextInt(femaleSurNames.length)];
-                builder.setGivenName(givenName);
-                builder.setSurName(surName);
+                givenName = (String) randomChoice(femaleNames);
+                surName = (String) randomChoice(femaleSurNames);
                 break;
             }
+            default:
+                throw new IllegalStateException("Unexpected value: " + (Gender) randomChoice(Gender.values()));
         }
-        String eMail = toLatinTrans.transliterate(givenName + surName) + "@yandex.ru";
+        builder.setGivenName(givenName);
+        builder.setSurName(surName);
+        String eMail = toLatinTrans.transliterate(givenName.charAt(0) + surName) + "@yandex.ru";
         builder.seteMail(eMail);
-        String phone = "+7" + phoneCodes[randomNumber.nextInt(phoneCodes.length)]
+        String phone = "+7" + randomChoice(phoneCodes)
                 + randomNumber.nextInt(10)
                 + randomNumber.nextInt(10)
                 + randomNumber.nextInt(10)
@@ -212,7 +213,7 @@ public class Employee {
         builder.setCode(code);
         builder.setState(states[code]);
         builder.setCity(cities[code]);
-        String address = streets[randomNumber.nextInt(streets.length)] + ", " + randomNumber.nextInt(50);
+        String address = randomChoice(streets) + ", " + randomNumber.nextInt(50);
         builder.setAddress(address);
 
         return builder.createEmployee();
@@ -220,56 +221,7 @@ public class Employee {
 
     /** returns an arbitrary Employee instance **/
     public static Employee generateEmployee(){
-
-        EmployeeBuilder builder = new EmployeeBuilder();
-
-        SecureRandom randomNumber = new SecureRandom();
-        final String CYRILLIC_TO_LATIN = "Russian-Latin/BGN";
-        Transliterator toLatinTrans = Transliterator.getInstance(CYRILLIC_TO_LATIN);
-
-        builder.setDept(Dept.values()[randomNumber.nextInt(Dept.values().length)]);
-        builder.setRole(Role.values()[randomNumber.nextInt(Role.values().length)]);
-        String givenName = "";
-        String surName = "";
-        switch (Gender.values()[randomNumber.nextInt(Gender.values().length)]){
-            case MALE: {
-                builder.setGender(Gender.MALE);
-                builder.setAge(minEmployeeAge + randomNumber.nextInt(maxMaleEmployeeAge - minEmployeeAge));
-                givenName = maleNames[randomNumber.nextInt(maleNames.length)];
-                surName = maleSurNames[randomNumber.nextInt(maleSurNames.length)];
-                builder.setGivenName(givenName);
-                builder.setSurName(surName);
-                break;
-            }
-            case FEMALE: {
-                builder.setGender(Gender.FEMALE);
-                builder.setAge(minEmployeeAge + randomNumber.nextInt(maxFemaleEmployeeAge - minEmployeeAge));
-                givenName = femaleNames[randomNumber.nextInt(femaleNames.length)];
-                surName = femaleSurNames[randomNumber.nextInt(femaleSurNames.length)];
-                builder.setGivenName(givenName);
-                builder.setSurName(surName);
-                break;
-            }
-        }
-        String eMail = toLatinTrans.transliterate(givenName + surName) + "@yandex.ru";
-        builder.seteMail(eMail);
-        String phone = "+7" + phoneCodes[randomNumber.nextInt(phoneCodes.length)]
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10)
-                + randomNumber.nextInt(10);
-        builder.setPhone(phone);
-        int code = randomNumber.nextInt(states.length);
-        builder.setCode(code);
-        builder.setState(states[code]);
-        builder.setCity(cities[code]);
-        String address = streets[randomNumber.nextInt(streets.length)] + ", " + randomNumber.nextInt(50);
-        builder.setAddress(address);
-
-        return builder.createEmployee();
+        return generateEmployee((Dept) randomChoice(Dept.values()), (Role) randomChoice(Role.values()));
     }
 
     /** returns an ArrayList of Employee instances **/
@@ -289,6 +241,11 @@ public class Employee {
         }
 
         return employees;
+    }
+
+    private static Object randomChoice(Object[] arrayList){
+        SecureRandom randomNumber = new SecureRandom();
+        return arrayList[randomNumber.nextInt(arrayList.length)];
     }
 
     // data for Employee generation
