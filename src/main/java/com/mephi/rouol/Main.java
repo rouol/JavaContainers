@@ -164,9 +164,9 @@ public class Main {
         System.out.println("\n/** LAB 5 **/");
         {
 
-            List list = new List(new Object[]{-1, 2, 3, 4, 5, 8, 11});
+            Object[] arr = new Object[]{-1, 2, 3, 4, 5, 8, 11};
             try {
-                list.remove(20);
+                Object a = arr[20];
                 } catch (ArrayIndexOutOfBoundsException e) {
                 System.out.println("поймано " + e);
             }
@@ -207,6 +207,21 @@ public class Main {
             try {
                 int exampleVariableOne = 500/0;
             } catch (ArithmeticException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** OutOfMemoryError **/");
+            try {
+                Integer[] myArray = new Integer[1000 * 1000 * 1000 * 10];
+            } catch (OutOfMemoryError e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** StackOverflowError **/");
+            try {
+                StackOverflowErrorExample soee = new StackOverflowErrorExample();
+                soee.print(0);
+            } catch (StackOverflowError e) {
                 System.out.println("поймано " + e);
             }
 
