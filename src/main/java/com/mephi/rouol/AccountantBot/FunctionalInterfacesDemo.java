@@ -54,7 +54,7 @@ public class FunctionalInterfacesDemo {
 
     /** prints an arbitrary Employee **/
     public static void exampleSupplierLambdaExpression(){
-        Supplier<String> supplier = () -> {return "just an an arbitrary Employee: " + Employee.generateEmployee();};
+        Supplier<String> supplier = () -> "just an an arbitrary Employee: " + Employee.generateEmployee();
         System.out.println(supplier.get());
     }
 

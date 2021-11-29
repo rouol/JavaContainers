@@ -6,37 +6,37 @@ public class AccountantDemo {
 
     //private static final ArrayList<Employee> employees = Employee.createShortList();
     /** Выплата премии женщинам сотрудникам **/
-    public static void payPremiumWomen(ArrayList<Employee> employees) {
+    public static void payPremiumToWomen(ArrayList<Employee> employees) {
         employees.stream()
-                .filter(p -> p.getGender() == Employee.Gender.FEMALE)
+                .filter(p -> p.getGender().equals(Employee.Gender.FEMALE))
                 .map(Accountant::payPremium)
                 .forEach(System.out::println);
     }
     /** Выплата зарплаты сотрудникам определенного департамента **/
-    public static void paySalaryFromDept(ArrayList<Employee> employees, Employee.Dept dept) {
+    public static void paySalaryByDept(ArrayList<Employee> employees, Employee.Dept dept) {
         employees.stream()
-                .filter(p -> p.getDept() == dept)
+                .filter(p -> p.getDept().equals(dept))
                 .map(Accountant::paySalary)
                 .forEach(System.out::println);
     }
     /** Выплата премии сотрудникам старше 30, работающим в определенном департаменте **/
-    public static void payPremiumOverThirtyFromDept(ArrayList<Employee> employees, Employee.Dept dept) {
+    public static void payPremiumByDept30Plus(ArrayList<Employee> employees, Employee.Dept dept) {
         employees.stream()
-                .filter(p -> p.getDept() == dept && p.getAge() > 30)
+                .filter(p -> p.getDept().equals(dept) && p.getAge() > 30)
                 .map(Accountant::payPremium)
                 .forEach(System.out::println);
     }
     /** Выплата зарплаты менеджерам **/
-    public static void paySalaryManagers(ArrayList<Employee> employees) {
+    public static void paySalaryToManagers(ArrayList<Employee> employees) {
         employees.stream()
-                .filter(p -> p.getRole() == Employee.Role.MANAGER)
+                .filter(p -> p.getRole().equals(Employee.Role.MANAGER))
                 .map(Accountant::paySalary)
                 .forEach(System.out::println);
     }
     /** Выплата премии стаффу **/
-    public static void payPremiumStaff(ArrayList<Employee> employees) {
+    public static void payPremiumToStaff(ArrayList<Employee> employees) {
         employees.stream()
-                .filter(p -> p.getRole() == Employee.Role.STAFF)
+                .filter(p -> p.getRole().equals(Employee.Role.STAFF))
                 .map(Accountant::payPremium)
                 .forEach(System.out::println);
     }
