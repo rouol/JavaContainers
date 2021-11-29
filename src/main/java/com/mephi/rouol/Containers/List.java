@@ -58,7 +58,7 @@ public class List {
     /** insert object by index **/
     public void add(Object object, int index) {
         if (index > this.count || index < 0) {   // add to this.count = add to the end
-            throw new ArrayIndexOutOfBoundsException("index=" + index + " > size=" + count);
+            throw new IndexOutOfBoundsException("index=" + index + " > size=" + count);
         }
         if (this.count == this.data.length) refreshRCap();
         System.arraycopy(data, index, this.data, index + 1, this.count - index);
@@ -69,14 +69,14 @@ public class List {
     /** returns object by index **/
     public Object get(int index) {
         if (index >= count || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("index=" + index + " > size=" + count);
+            throw new IndexOutOfBoundsException("index=" + index + " > size=" + count);
         }
         return data[index];
     }
     /** sets null and returns old object by index **/
     public Object remove(int index) {
         if (index >= count || index < 0) {
-            throw new ArrayIndexOutOfBoundsException("index=" + index + " > size=" + count);
+            throw new IndexOutOfBoundsException("index=" + index + " > size=" + count);
         }
         Object _object = this.data[index];
         if (this.count - (index + 1) >= 0)
