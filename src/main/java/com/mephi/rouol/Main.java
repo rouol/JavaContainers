@@ -1,15 +1,16 @@
 package com.mephi.rouol;
 
-import com.mephi.rouol.AccountantBot.Accountant;
-import com.mephi.rouol.AccountantBot.AccountantDemo;
-import com.mephi.rouol.AccountantBot.Employee;
-import com.mephi.rouol.AccountantBot.FunctionalInterfacesDemo;
+import com.mephi.rouol.AccountantBot.*;
 import com.mephi.rouol.Containers.List;
-import com.mephi.rouol.Containers.Map;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-
-import com.mephi.rouol.StringEditor.StringEditor;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Main {
 
@@ -106,30 +107,110 @@ public class Main {
         }
         */
 
-        System.out.println("\n/** LAB 3 **/");
-        ArrayList<Employee> employees = Employee.createShortList();
-        //System.out.println(employees);
-        System.out.println(Accountant.paySalary(employees.get(11)));
-        System.out.println(Accountant.payPremium(employees.get(9)));
-        System.out.println("\n/** Выплата премии женщинам сотрудникам **/");
-        AccountantDemo.payPremiumWomen(employees);
-        System.out.println("\n/** Выплата зарплаты сотрудникам определенного департамента **/");
-        AccountantDemo.paySalaryFromDept(employees, Employee.Dept.IT);
-        System.out.println("\n/** Выплата премии сотрудникам старше 30, работающим в определенном департаменте **/");
-        AccountantDemo.payPremiumOverThirtyFromDept(employees, Employee.Dept.SALES);
-        System.out.println("\n/** Выплата зарплаты менеджерам **/");
-        AccountantDemo.paySalaryManagers(employees);
-        System.out.println("\n/** Выплата премии стаффу **/");
-        AccountantDemo.payPremiumStaff(employees);
+//        System.out.println("\n/** LAB 3 **/");
+//        {
+//            ArrayList<Employee> employees = Employee.createShortList();
+//            //System.out.println(employees);
+//            System.out.println(Accountant.paySalary(employees.get(11)));
+//            System.out.println(Accountant.payPremium(employees.get(9)));
+//            System.out.println("\n/** Выплата премии женщинам сотрудникам **/");
+//            AccountantDemo.payPremiumToWomen(employees);
+//            System.out.println("\n/** Выплата зарплаты сотрудникам определенного департамента **/");
+//            AccountantDemo.paySalaryByDept(employees, Employee.Dept.IT);
+//            System.out.println("\n/** Выплата премии сотрудникам старше 30, работающим в определенном департаменте **/");
+//            AccountantDemo.payPremiumByDept30Plus(employees, Employee.Dept.SALES);
+//            System.out.println("\n/** Выплата зарплаты менеджерам **/");
+//            AccountantDemo.paySalaryToManagers(employees);
+//            System.out.println("\n/** Выплата премии стаффу **/");
+//            AccountantDemo.payPremiumToStaff(employees);
+//
+//            System.out.println("\n/** HW for LAB 3 **/\n");
+//            System.out.println("/** Consumer Lambda Expression **/");
+//            FunctionalInterfacesDemo.exampleConsumerLambdaExpression(employees);
+//            System.out.println("/** Function Lambda Expression **/");
+//            FunctionalInterfacesDemo.exampleFunctionLambdaExpression(employees);
+//            System.out.println("/** Supplier Lambda Expression **/");
+//            FunctionalInterfacesDemo.exampleSupplierLambdaExpression();
+//            System.out.println("\n/** BiPredicate Lambda Expression **/");
+//            FunctionalInterfacesDemo.exampleBiPredicateLambdaExpression(employees);
+//        }
 
-        System.out.println("\n/** HW for LAB 3 **/\n");
-        System.out.println("/** Consumer Lambda Expression **/");
-        FunctionalInterfacesDemo.exampleConsumerLambdaExpression(employees);
-        System.out.println("/** Function Lambda Expression **/");
-        FunctionalInterfacesDemo.exampleFunctionLambdaExpression(employees);
-        System.out.println("/** Supplier Lambda Expression **/");
-        FunctionalInterfacesDemo.exampleSupplierLambdaExpression();
-        System.out.println("\n/** BiPredicate Lambda Expression **/");
-        FunctionalInterfacesDemo.exampleBiPredicateLambdaExpression(employees);
+        System.out.println("\n/** LAB 4 **/");
+        {
+            ArrayList<Employee> employees = Employee.createShortList();
+            System.out.println("/** map **/");
+            StreamDemo.paySalaryToITDept(employees);
+            System.out.println("/** map and peek **/");
+            StreamDemo.paySalaryToITDeptANDPrint(employees);
+            System.out.println("/** findFirst **/");
+            StreamDemo.showFirstFromITDept(employees);
+            System.out.println("/** lazy **/");
+            StreamDemo.payPremiumToITDept(employees);
+
+            employees = Employee.createShortList();
+            employees.stream().map(Accountant::paySalary).forEach(System.out::print);
+            employees.stream().map(Accountant::payPremium).forEach(System.out::print);;
+
+            System.out.println("/** max **/");
+            StreamDemo.employeeWithMaxSalary(employees);
+            System.out.println("/** min **/");
+            StreamDemo.employeeWithMinSalary(employees);
+            System.out.println("/** average **/");
+            StreamDemo.employeesAvgSalary(employees);
+            System.out.println("/** sum **/");
+            StreamDemo.employeesSumSalary(employees);
+        }
+
+        System.out.println("\n/** LAB 5 **/");
+        {
+
+            List list = new List(new Object[]{-1, 2, 3, 4, 5, 8, 11});
+            try {
+                list.remove(20);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** FileNotFoundException **/");
+            try {
+                File file = new File("nonexistent.txt");
+                Scanner scan = new Scanner(file);
+            } catch (FileNotFoundException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** NullPointerException **/");
+            try {
+                String myString = null;
+                System.out.println(myString.toLowerCase(Locale.ROOT));
+            } catch (NullPointerException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** IOException **/");
+            try {
+                File file = new File("nonexistent.txt");
+                FileInputStream fileInputStream = new FileInputStream(file);
+            } catch (IOException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** ClassCastException **/");
+            try {
+                Object i = 42;
+                String s = (String)i;
+            } catch (ClassCastException e) {
+                System.out.println("поймано " + e);
+            }
+
+            System.out.println("\n/** ArithmeticException **/");
+            try {
+                int exampleVariableOne = 500/0;
+            } catch (ArithmeticException e) {
+                System.out.println("поймано " + e);
+            }
+
+        }
+
     }
 }
