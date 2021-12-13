@@ -1,4 +1,4 @@
-package com.mephi.rouol;
+package com.mephi.rouol.utility;
 
 public class StackOverflowErrorExample {
     public void print(int myInt) {

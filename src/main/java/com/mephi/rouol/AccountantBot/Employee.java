@@ -2,6 +2,7 @@ package com.mephi.rouol.AccountantBot;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.ibm.icu.text.Transliterator;
@@ -301,7 +302,7 @@ public class Employee {
     }
 
     /** returns an ArrayList of Employee instances **/
-    public static ArrayList<Employee> createShortList() {
+    public static List<Employee> createShortList() {
         ArrayList<Employee> employees = new ArrayList<>();
         SecureRandom randomNumber = new SecureRandom();
 
